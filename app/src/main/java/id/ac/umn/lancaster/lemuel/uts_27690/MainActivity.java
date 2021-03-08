@@ -1,6 +1,8 @@
 package id.ac.umn.lancaster.lemuel.uts_27690;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent goToProfile = new Intent(MainActivity.this, ProfileActivity.class);
-                startActivity(goToProfile);
+                startActivityForResult(goToProfile, 1);
             }
         });
 
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent goToLogin = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(goToLogin);
+                startActivityForResult(goToLogin, 1);
             }
         });
     }
