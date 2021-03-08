@@ -5,6 +5,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -12,7 +13,10 @@ import android.widget.MediaController;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.io.IOException;
 
@@ -36,6 +40,13 @@ public class NowPlaying extends AppCompatActivity
         btnPrevious = findViewById(R.id.btnPrevious);
         btnNext = findViewById(R.id.btnNext);
         seekBar = findViewById(R.id.seekBar);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Set action bar title
+        getSupportActionBar().setTitle("Now Playing");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -70,14 +81,14 @@ public class NowPlaying extends AppCompatActivity
                 if (mPlayer.isPlaying()) {
                     mPlayer.pause();
                     btnControl.setBackgroundResource(R.drawable.ic_baseline_play_arrow_24);
-                } else
-                {
+                }
+                // If not then resume
+                else {
                     mPlayer.start();
                     btnControl.setBackgroundResource(R.drawable.ic_baseline_pause_24);
                 }
             }
         });
-
     }
 
     private void updateSeekBar() {
@@ -91,4 +102,14 @@ public class NowPlaying extends AppCompatActivity
             updateSeekBar();
         }
     };
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Run Action when back button is pressed
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
