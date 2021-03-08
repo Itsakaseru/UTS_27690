@@ -7,9 +7,17 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.LinkedList;
 
 public class SongListActivity extends AppCompatActivity
 {
+    RecyclerView rvSongList;
+    SongListAdapter mAdapter;
+    LinkedList<Song> songList = new LinkedList<>();
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_list);
@@ -17,7 +25,14 @@ public class SongListActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Set action bar title
         getSupportActionBar().setTitle("List Lagu");
+
+        rvSongList = (RecyclerView) findViewById(R.id.songList);
+        mAdapter = new SongListAdapter(this, songList);
+        rvSongList.setAdapter(mAdapter);
+        rvSongList.setLayoutManager(new LinearLayoutManager(this));
+        insertSongs();
     }
 
     @Override
@@ -45,5 +60,13 @@ public class SongListActivity extends AppCompatActivity
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void insertSongs() {
+        songList.add(new Song("Anata no Risou no Heroine", "Desc", "android.resource://" +getPackageName() + "/"+ R.raw.anata_no_risou_no_heroine));
+        songList.add(new Song("CHASE!", "Desc", "android.resource://" +getPackageName() + "/"+ R.raw.chase));
+        songList.add(new Song("Starlight", "Desc", "android.resource://" +getPackageName() + "/"+ R.raw.starlight));
+        songList.add(new Song("SUPER NOVA", "Desc", "android.resource://" +getPackageName() + "/"+ R.raw.super_nova));
+        songList.add(new Song("VIVID WORLD", "Desc", "android.resource://" +getPackageName() + "/"+ R.raw.vivid_world));
     }
 }
