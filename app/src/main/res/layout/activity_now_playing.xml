@@ -17,54 +17,54 @@
         app:srcCompat="@drawable/album_placeholder" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:id="@+id/songName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="song name"
+        android:textAlignment="center"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <SeekBar
-        android:id="@+id/seekBar2"
-        android:layout_width="240dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPause" />
-
     <ImageButton
         android:id="@+id/btnPrevious"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="48dp"
         android:background="@drawable/ic_baseline_skip_previous_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/songName" />
 
     <ImageButton
-        android:id="@+id/btnPause"
+        android:id="@+id/btnControl"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="48dp"
         android:background="@drawable/ic_baseline_pause_24"
         app:layout_constraintEnd_toStartOf="@+id/btnNext"
         app:layout_constraintStart_toEndOf="@+id/btnPrevious"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/songName" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="240dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnControl" />
 
     <ImageButton
         android:id="@+id/btnNext"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="88dp"
         android:background="@drawable/ic_baseline_skip_next_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/songName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
