@@ -48,8 +48,8 @@ public class LoginActivity extends AppCompatActivity
 
                 if (username.equals(setUsername) && password.equals(setPassword)) {
                     Intent goToSongList = new Intent(LoginActivity.this, SongListActivity.class);
-                    startActivity(goToSongList);
                     finish();
+                    startActivity(goToSongList);
                 }
                 else {
                     // Show toast

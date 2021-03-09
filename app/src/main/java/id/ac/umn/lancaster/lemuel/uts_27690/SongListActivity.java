@@ -56,8 +56,8 @@ public class SongListActivity extends AppCompatActivity
                 break;
             case R.id.menuBtnLogout:
                 Intent goToMainMenu = new Intent(SongListActivity.this, MainActivity.class);
-                startActivity(goToMainMenu);
                 finish();
+                startActivity(goToMainMenu);
                 break;
         }
         return super.onOptionsItemSelected(item);

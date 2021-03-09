@@ -62,12 +62,12 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongVi
         @Override
         public void onClick(View v) {
             mPosisi = getLayoutPosition();
-            mSong = mSongList.get(mPosisi);
 
             // Call now playing class
             Intent intentDetail = new Intent(mContext, NowPlaying.class);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("SongDetail", mSong);
+            bundle.putSerializable("SongList", mSongList);
+            bundle.putSerializable("POS", mPosisi);
             intentDetail.putExtras(bundle);
             mContext.startActivity(intentDetail);
         }
