@@ -109,6 +109,32 @@ public class NowPlaying extends AppCompatActivity
                 }
             }
         });
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(mPlayer != null && fromUser){
+                    mPlayer.seekTo(progress);
+                }
+            }
+        });
+
+        mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                btnControl.setBackgroundResource(R.drawable.ic_baseline_play_arrow_24);
+            }
+        });
     }
 
     private void setSongPlayer(Uri songUri) {
@@ -138,6 +164,9 @@ public class NowPlaying extends AppCompatActivity
         // Play the song and set text to song title
         mPlayer.start();
         songName.setText(songList.get(pos).getSongTitle());
+
+        // Set button to pause
+        btnControl.setBackgroundResource(R.drawable.ic_baseline_pause_24);
 
         // Set maximum seekbar to the current song duration
         seekBar.setMax(mPlayer.getDuration());
