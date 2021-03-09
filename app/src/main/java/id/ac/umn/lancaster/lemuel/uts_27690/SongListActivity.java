@@ -1,11 +1,15 @@
 package id.ac.umn.lancaster.lemuel.uts_27690;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,6 +38,17 @@ public class SongListActivity extends AppCompatActivity
         rvSongList.setAdapter(mAdapter);
         rvSongList.setLayoutManager(new LinearLayoutManager(this));
         insertSongs();
+
+        AlertDialog.Builder welcomeMsg = new AlertDialog.Builder(this);
+        welcomeMsg.setTitle("Selamat Datang");
+        welcomeMsg.setMessage("Lemuel Lancaster \n00000027690");
+        welcomeMsg.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialog = welcomeMsg.show();
     }
 
     @Override
