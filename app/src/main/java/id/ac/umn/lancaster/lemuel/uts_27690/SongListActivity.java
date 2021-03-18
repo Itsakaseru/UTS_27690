@@ -1,17 +1,27 @@
 package id.ac.umn.lancaster.lemuel.uts_27690;
 
+import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,11 +43,18 @@ public class SongListActivity extends AppCompatActivity
         // Set action bar title
         getSupportActionBar().setTitle("List Lagu");
 
-        rvSongList = (RecyclerView) findViewById(R.id.songList);
-        mAdapter = new SongListAdapter(this, songList);
-        rvSongList.setAdapter(mAdapter);
-        rvSongList.setLayoutManager(new LinearLayoutManager(this));
-        insertSongs();
+        // Check permissions
+        if(ContextCompat.checkSelfPermission(SongListActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if(ActivityCompat.shouldShowRequestPermissionRationale(SongListActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                ActivityCompat.requestPermissions(SongListActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            } else {
+                ActivityCompat.requestPermissions(SongListActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            }
+        } else {
+            // Read song from internal storage
+            readSongFromStorage();
+            loadRecycle();
+        }
 
         AlertDialog.Builder welcomeMsg = new AlertDialog.Builder(this);
         welcomeMsg.setTitle("Selamat Datang");
@@ -78,11 +95,52 @@ public class SongListActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public void insertSongs() {
-        songList.add(new Song("Anata no Risou no Heroine", "Desc", "android.resource://" +getPackageName() + "/"+ R.raw.anata_no_risou_no_heroine));
-        songList.add(new Song("CHASE!", "Desc", "android.resource://" +getPackageName() + "/"+ R.raw.chase));
-        songList.add(new Song("Starlight", "Desc", "android.resource://" +getPackageName() + "/"+ R.raw.starlight));
-        songList.add(new Song("SUPER NOVA", "Desc", "android.resource://" +getPackageName() + "/"+ R.raw.super_nova));
-        songList.add(new Song("VIVID WORLD", "Desc", "android.resource://" +getPackageName() + "/"+ R.raw.vivid_world));
+    public void readSongFromStorage() {
+        ContentResolver contentResolver = getContentResolver();
+        Uri songUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        Cursor songCursor = contentResolver.query(songUri, null, null, null, null);
+
+        if (songCursor != null && songCursor.moveToFirst()) {
+            int songTitle = songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
+            int songArtist = songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
+            int data = songCursor.getColumnIndex(MediaStore.Audio.Media.DATA);
+
+            do {
+                String title = songCursor.getString(songTitle);
+                String artist = songCursor.getString(songArtist);
+                String path = songCursor.getString(data);
+
+                songList.add(new Song(title, artist, path));
+
+            } while (songCursor.moveToNext());
+
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 1:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if(ContextCompat.checkSelfPermission(SongListActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        // Read song from internal storage
+                        readSongFromStorage();
+                        loadRecycle();
+                    }
+                } else {
+                    Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+                    Intent goToMainMenu = new Intent(SongListActivity.this, MainActivity.class);
+                    finish();
+                    startActivity(goToMainMenu);
+                }
+        }
+    }
+
+    public void loadRecycle() {
+        rvSongList = (RecyclerView) findViewById(R.id.songList);
+        mAdapter = new SongListAdapter(this, songList);
+        rvSongList.setAdapter(mAdapter);
+        rvSongList.setLayoutManager(new LinearLayoutManager(this));
     }
 }

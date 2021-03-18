@@ -26,6 +26,7 @@ import java.util.List;
 public class NowPlaying extends AppCompatActivity
 {
     private TextView songName;
+    private TextView songArtist;
     private ImageButton btnControl;
     private ImageButton btnPrevious;
     private ImageButton btnNext;
@@ -44,6 +45,7 @@ public class NowPlaying extends AppCompatActivity
         setContentView(R.layout.activity_now_playing);
 
         songName = (TextView) findViewById(R.id.songName);
+        songArtist = (TextView) findViewById(R.id.songArtist);
         btnControl = findViewById(R.id.btnControl);
         btnPrevious = findViewById(R.id.btnPrevious);
         btnNext = findViewById(R.id.btnNext);
@@ -74,11 +76,13 @@ public class NowPlaying extends AppCompatActivity
                 // If music is playing
                 if (mPlayer.isPlaying()) {
                     mPlayer.pause();
+                    seekBar.removeCallbacks(runnable);
                     btnControl.setBackgroundResource(R.drawable.ic_baseline_play_arrow_24);
                 }
                 // If not then resume
                 else {
                     mPlayer.start();
+                    updateSeekBar();
                     btnControl.setBackgroundResource(R.drawable.ic_baseline_pause_24);
                 }
             }
@@ -164,6 +168,7 @@ public class NowPlaying extends AppCompatActivity
         // Play the song and set text to song title
         mPlayer.start();
         songName.setText(songList.get(pos).getSongTitle());
+        songArtist.setText(songList.get(pos).getSongArtist());
 
         // Set button to pause
         btnControl.setBackgroundResource(R.drawable.ic_baseline_pause_24);

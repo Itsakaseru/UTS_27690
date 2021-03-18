@@ -16,7 +16,10 @@ public class Song implements Serializable
 
     public String getSongTitle()   { return this.songTitle; }
     public String getSongArtist() { return this.songArtist; }
-    public String getSongURI() { return this.songURI; }
+    public String getSongURI() {
+        String songPath = "file:///" + this.songURI;
+        return songPath;
+    }
 
     public void setSongTitle(String songTitle)         { this.songTitle = songTitle; }
     public void setSongDescription(String songArtist)  { this.songArtist = songArtist; }
