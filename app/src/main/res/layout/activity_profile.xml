@@ -61,13 +61,38 @@
             app:layout_constraintTop_toBottomOf="@+id/txtNIM" />
 
         <TextView
-            android:id="@+id/txtKelas"
-            android:layout_width="200dp"
+        android:id="@+id/txtKelas"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Kelas  : EL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNama" />
+
+        <TextView
+            android:id="@+id/txtReferensi"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Kelas  : EL"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:text="Referensi:"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtNama" />
+            app:layout_constraintTop_toBottomOf="@+id/txtKelas" />
+
+        <TextView
+            android:id="@+id/txtList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:textSize="12sp"
+            android:text="Youtube : \nhttps://www.youtube.com/watch?v=kf2fxYLOiSo\n\nWebsite: \nhttps://developer.android.com/\nhttps://stackoverflow.com/"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtReferensi" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
