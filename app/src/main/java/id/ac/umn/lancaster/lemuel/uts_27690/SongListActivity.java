@@ -132,7 +132,7 @@ public class SongListActivity extends AppCompatActivity
                     Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                     Intent goToMainMenu = new Intent(SongListActivity.this, MainActivity.class);
                     finish();
-                    startActivity(goToMainMenu);
+                    setResult(RESULT_OK);
                 }
         }
     }
