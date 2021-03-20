@@ -129,7 +129,7 @@ public class SongListActivity extends AppCompatActivity
                         loadRecycle();
                     }
                 } else {
-                    Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Permission Denied!\nPlease allow our application to access internal storage", Toast.LENGTH_LONG).show();
                     Intent goToMainMenu = new Intent(SongListActivity.this, MainActivity.class);
                     finish();
                     setResult(RESULT_OK);
